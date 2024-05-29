@@ -1,21 +1,25 @@
 import { Flex, Menu } from "antd";
 import React from "react";
-import { FaLeaf } from "react-icons/fa6";
 import {
   UserOutlined,
   ProfileOutlined,
-  LogoutOutlined,
   OrderedListOutlined,
   CarryOutOutlined,
-  SettingOutlined,
+  SnippetsOutlined,
+  BookOutlined,
 } from "@ant-design/icons";
+import avatar from "../../assets/avatar.jpg";
 
 export const Sidebar = () => {
   return (
     <>
       <Flex align="center" justify="center">
         <div className="logo">
-          <FaLeaf />
+          <img
+            src={avatar}
+            style={{ width: "80px", marginTop: 10 }}
+            alt="Avatar"
+          />
         </div>
       </Flex>
       <Menu
@@ -23,12 +27,28 @@ export const Sidebar = () => {
         defaultSelectedKeys={["1"]}
         className="menu-bar"
         items={[
-          { key: "1", icon: <UserOutlined />, label: "DashBoard" },
-          { key: "2", icon: <ProfileOutlined />, label: "Profile" },
-          { key: "3", icon: <CarryOutOutlined />, label: "My Orders" },
-          { key: "4", icon: <OrderedListOutlined />, label: "To Do" },
-          { key: "5", icon: <SettingOutlined />, label: "Setting" },
-          { key: "6", icon: <LogoutOutlined />, label: "Logout" },
+          { key: "1", icon: <UserOutlined />, label: "Quản Lý Tài Khoản" },
+
+          {
+            key: "2",
+            icon: <CarryOutOutlined />,
+            label: "Quản Lý Đơn Hàng",
+            children: [
+              {
+                key: "3",
+                icon: <SnippetsOutlined />,
+                label: "Đơn Hàng Hoàn Thành",
+              },
+
+              {
+                key: "4",
+                icon: <BookOutlined />,
+                label: "Đơn Hàng Đang Xử Lý",
+              },
+            ],
+          },
+          { key: "5", icon: <OrderedListOutlined />, label: "Quản Lý Dịch Vụ" },
+          { key: "6", icon: <ProfileOutlined />, label: "Quản Lý Khiếu Nại" },
         ]}
       ></Menu>
     </>
