@@ -3,7 +3,7 @@ import { Flex, Typography, Avatar } from "antd";
 import {
   MessageOutlined,
   NotificationOutlined,
-  UserOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
 import Search from "antd/es/input/Search";
 
@@ -16,9 +16,9 @@ const CustomHeader = () => {
       <Flex align="center" gap="3rem">
         <Search placeholder="Search DashBoard" allowClear />
         <Flex align="center" gap="10px">
-          <MessageOutlined className="header-icon"/>
-          <NotificationOutlined className="header-icon"/>
-          <Avatar icon={<UserOutlined />} />
+          <MessageOutlined className="header-icon" />
+          <NotificationOutlined className="header-icon" />
+          <LogoutOutlined />
         </Flex>
       </Flex>
     </Flex>

@@ -1,4 +1,11 @@
 /* Main App */
+.layout-background {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('../../assets/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
 .header {
   padding-top: 12px;
   background: white;
@@ -24,11 +31,7 @@
   bottom: 0;
   top: 0;
 }
-.logo {
-  color: #4f6f52;
-  margin: 40px 0;
-  font-size: 1.5rem;
-}
+
 .menu-bar{
   display: flex;
   flex-direction: column;
@@ -36,43 +39,46 @@
   font-weight: 500;
 }
 .ant-menu-item-selected{
-  background-color: #4f6f52 !important;
+  background-color: #F68C1F !important;
   color: #ffff !important;
 }
 
 /* Header */
 .header-icon{
-  background: #d2e3c8;
+  background: #F68C1F;
   padding: 8px;
   border-radius: 4px;
   font-size: 15px;
-  color: #4f6f52;
+  color: #ffff;
   cursor: pointer;
 }
 
 /* button, and color */
 .ant-btn:hover{
-  color: #4f6f52 !important;
-  border-color: #4f6f52 !important;
+  color: #F68C1F !important;
+  border-color: #f68b1f !important;
 }
 .ant-btn-primary{
-  background-color: #4f6f52;
+  background-color: #e8b888;
 }
 .ant-btn-primary:hover{
-  background-color: #173a1a !important;
+  background-color: #F68C1F !important;
   color: #ffff !important;
 }
+.ant-menu-light .ant-menu-submenu-selected >.ant-menu-submenu-title{
+  color: #f68b1f;
+}
 .primary--color{
-  color: #4f6f52 !important;
+  color: #F68C1F !important;
 }
 .primary--light--color{
-  color: #739072 !important;
+  color: #e8b888 !important;
 }
 .secondary--color{
-  color: #86a789 !important;
+  color: #e8b888 !important;
 }
 .light--color{
-  color: #d2e3c8 !important;
+  color: #e3d8c8 !important;
 }
 .gray--color {
   color: rgb(182, 181, 181) !important;
