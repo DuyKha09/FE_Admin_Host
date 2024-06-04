@@ -7,10 +7,32 @@ import {
   CarryOutOutlined,
   SnippetsOutlined,
   BookOutlined,
+  SolutionOutlined,
 } from "@ant-design/icons";
 import avatar from "../../assets/avatar.jpg";
+import { useNavigate } from "react-router-dom";
+
+function getItem(label, key, icon, children) {
+  return {
+    key,
+    icon,
+    children,
+    label,
+  };
+}
+const items = [
+  getItem("Quản Lý Tài Khoản", "manageAccount", <UserOutlined />),
+  getItem("Quản Lý Khách Hàng", "manageCustomerAccount", <SolutionOutlined />),
+  getItem("Quản Lý Đơn Hàng", "2", <CarryOutOutlined />, [
+    getItem("Đơn Hàng Hoàn Thành", "3", <SnippetsOutlined />),
+    getItem("Đơn Hàng Đang Xử Lý", "4", <BookOutlined />),
+  ]),
+  getItem("Quản Lý Dịch Vụ", "5", <OrderedListOutlined />),
+  getItem("Quản Lý Khiếu Nại", "6", <ProfileOutlined />),
+];
 
 export const Sidebar = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Flex align="center" justify="center">
@@ -26,30 +48,10 @@ export const Sidebar = () => {
         mode="inline"
         defaultSelectedKeys={["1"]}
         className="menu-bar"
-        items={[
-          { key: "1", icon: <UserOutlined />, label: "Quản Lý Tài Khoản" },
-
-          {
-            key: "2",
-            icon: <CarryOutOutlined />,
-            label: "Quản Lý Đơn Hàng",
-            children: [
-              {
-                key: "3",
-                icon: <SnippetsOutlined />,
-                label: "Đơn Hàng Hoàn Thành",
-              },
-
-              {
-                key: "4",
-                icon: <BookOutlined />,
-                label: "Đơn Hàng Đang Xử Lý",
-              },
-            ],
-          },
-          { key: "5", icon: <OrderedListOutlined />, label: "Quản Lý Dịch Vụ" },
-          { key: "6", icon: <ProfileOutlined />, label: "Quản Lý Khiếu Nại" },
-        ]}
+        items={items}
+        onClick={({ key }) => {
+          navigate(key);
+        }}
       ></Menu>
     </>
   );

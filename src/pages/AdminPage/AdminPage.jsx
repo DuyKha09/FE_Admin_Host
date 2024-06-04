@@ -1,17 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Button, Flex, Layout } from "antd";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import { LocalStorage } from "../../utils/LocalStorage";
 import { Sidebar } from "../../components/Admin/Sidebar";
 import CustomHeader from "../../components/Admin/Header";
 import "./App.css";
-import MainContent from "../../components/Admin/MainContent";
-import SideContent from "../../components/Admin/SideContent";
-import background from "../../assets/background.jpg"; // Import hình nền
 
 const { Sider, Header, Content } = Layout;
 
 const AdminPage = () => {
+  const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
+
+  useEffect(() => {
+    const role = LocalStorage.getRole();
+    if (role !== "admin") {
+      navigate("/forbidden");
+      LocalStorage.clearToken();
+    }
+  }, [navigate]);
 
   return (
     <Layout>
@@ -34,13 +42,12 @@ const AdminPage = () => {
         />
       </Sider>
       <Layout className="layout-background">
-        <Header className="header">
+        <Header className="headers">
           <CustomHeader />
         </Header>
         <Content className="content">
           <Flex gap="large">
-            <MainContent />
-            <SideContent />
+            <Outlet />
           </Flex>
         </Content>
       </Layout>
