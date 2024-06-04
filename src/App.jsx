@@ -10,6 +10,8 @@ import AdminPage from "./pages/AdminPage/AdminPage";
 import ManageAccount from "./components/Admin/ManageAccount";
 import ManageCustomerAccount from "./components/Admin/ManageCustomerAccount";
 
+import HostPage from "./pages/HostPage/HostPage";
+
 function App() {
   return (
     <>
@@ -21,8 +23,12 @@ function App() {
           <Route path="*" element={<NotFound />} />
           <Route path="/admin" element={<AdminPage />}>
             <Route path="/admin/manageAccount" element={<ManageAccount />} />
-            <Route path="/admin/manageCustomerAccount" element={<ManageCustomerAccount />} />
+            <Route
+              path="/admin/manageCustomerAccount"
+              element={<ManageCustomerAccount />}
+            />
           </Route>
+          <Route path="/host" element={<HostPage />}></Route>
         </Routes>
       </BrowserRouter>
     </>

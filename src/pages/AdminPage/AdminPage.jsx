@@ -42,7 +42,7 @@ const AdminPage = () => {
         />
       </Sider>
       <Layout className="layout-background">
-        <Header className="header">
+        <Header className="headers">
           <CustomHeader />
         </Header>
         <Content className="content">

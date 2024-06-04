@@ -24,7 +24,7 @@ const CustomHeader = () => {
       <Typography.Title level={3} type="secondary">
         WelCome Fur Ever Friend
       </Typography.Title>
-      <Flex align="center" gap="3rem">
+      <Flex align="center" gap="3rem" >
         <Search placeholder="Search DashBoard" allowClear />
         <Flex align="center" gap="10px">
           <MessageOutlined className="header-icon" />
