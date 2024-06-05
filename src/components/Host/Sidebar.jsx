@@ -3,16 +3,27 @@ import
 {BsCart3, BsGrid1X2Fill, BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, 
   BsListCheck, BsMenuButtonWideFill, BsFillGearFill}
  from 'react-icons/bs'
+ import { Flex } from 'antd'
+ import avatar from "../../assets/avatar.jpg";
 
 function Sidebar({openSidebarToggle, OpenSidebar}) {
   return (
     <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive": ""}>
         <div className='sidebar-title'>
             <div className='sidebar-brand'>
-                <BsCart3  className='icon_header'/> Furever Friend
+                <BsCart3  className='icon_header'/> Fur Ever Friend
             </div>
             <span className='icon close_icon' onClick={OpenSidebar}>X</span>
         </div>
+        {/* <Flex align="center" justify="center">
+        <div className="logo">
+          <img
+            src={avatar}
+            style={{ width: "80px", marginTop: 10 }}
+            alt="Avatar"
+          />
+        </div>
+      </Flex> */}
 
         <ul className='sidebar-list'>
             <li className='sidebar-list-item'>
