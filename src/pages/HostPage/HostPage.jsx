@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { LocalStorage } from '../../utils/LocalStorage'
 
 function App() {
-    const navigate = useNavigate;
+    const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState(false);
     useEffect(() => {
       const role = LocalStorage.getRole();
@@ -24,11 +24,11 @@ function App() {
     }
   
     return (
-      <div className='grid-container'>
-        <Header OpenSidebar={OpenSidebar}/>
-        <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
+      // <div className='grid-container'>
+      //   <Header OpenSidebar={OpenSidebar}/>
+      //   <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
         <Home />
-      </div>
+      // </div>
     )
   }
   
