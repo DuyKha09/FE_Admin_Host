@@ -43,6 +43,7 @@
   color: #ffff !important;
 }
 
+
 /* Header */
 .header-icon{
   background: #F68C1F;
@@ -82,6 +83,9 @@
 }
 .gray--color {
   color: rgb(182, 181, 181) !important;
+}
+.ant-card-head {
+  background-color: #F68C1F;
 }
 
 /* Data List */

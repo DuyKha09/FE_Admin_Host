@@ -7,8 +7,11 @@ import Forbidden from "./pages/Forbidden/Forbidden";
 import NotFound from "./pages/404page/404page";
 
 import AdminPage from "./pages/AdminPage/AdminPage";
-import ManageAccount from "./components/Admin/ManageAccount";
-import ManageCustomerAccount from "./components/Admin/ManageCustomerAccount";
+import ManageAccount from "./components/Admin/ManageAccount/ManageAccount";
+import ManageCustomerAccount from "./components/Admin/ManageCustomerAccount/ManageCustomerAccount";
+import UserDetail from "./components/Admin/ManageCustomerAccount/UserDetail";
+import ManageService from "./components/Admin/ManageService/ManageService";
+import ServiceDetail from "./components/Admin/ManageService/ServiceDetail";
 
 import HostPage from "./pages/HostPage/HostPage";
 
@@ -26,6 +29,15 @@ function App() {
             <Route
               path="/admin/manageCustomerAccount"
               element={<ManageCustomerAccount />}
+            />
+            <Route
+              path="/admin/manageCustomerAccount/:user_id"
+              element={<UserDetail />}
+            />
+            <Route path="/admin/manageService" element={<ManageService />} />
+            <Route
+              path="/admin/manageService/:id"
+              element={<ServiceDetail />}
             />
           </Route>
           <Route path="/host" element={<HostPage />}></Route>
