@@ -29,7 +29,7 @@ const LoginPage = () => {
         navigation("/admin");
         toast.success("Login successful");
       } else if (response.data.user.role === "host") {
-        navigation("/");
+        navigation("/host");
         toast.success("Login successful");
       } else {
         navigation("/");
