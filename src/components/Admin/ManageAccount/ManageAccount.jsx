@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axiosClient from "../../api/customFetch";
-import { baseURL, users } from "../../api/endPoints";
+import axiosClient from "../../../api/customFetch";
+import { baseURL, users } from "../../../api/endPoints";
 import { Table, Space, Typography, Avatar, Tag } from "antd";
 import {
   TeamOutlined,
@@ -9,7 +9,7 @@ import {
   UserSwitchOutlined,
   UnlockOutlined,
 } from "@ant-design/icons";
-import avatar from "../../assets/avatar.jpg";
+import avatar from "../../../assets/avatar.jpg";
 
 const { Column } = Table;
 const { Title } = Typography;
@@ -94,6 +94,11 @@ const ManageAccount = () => {
           key="role"
           ellipsis={{ showTitle: false }}
           width={200}
+          render={(role) => (
+            <Tag color={role.role_name === "customer" ? "blue" : "yellow"}>
+              {role.role_name}
+            </Tag>
+          )}
         />
         <Column
           title={
@@ -101,13 +106,13 @@ const ManageAccount = () => {
               <UnlockOutlined /> Hoạt Động
             </Space>
           }
-          dataIndex="status"
-          key="status"
+          dataIndex="account_status"
+          key="account_status"
           ellipsis={{ showTitle: false }}
           width={200}
-          render={(active) => (
-            <Tag color={active ? "green" : "red"}>
-              {active ? "Hoạt Động" : "Đã Bị Ban"}
+          render={(account_status) => (
+            <Tag color={account_status ? "green" : "red"}>
+              {account_status ? "Hoạt Động" : "Đã Bị Ban"}
             </Tag>
           )}
         />

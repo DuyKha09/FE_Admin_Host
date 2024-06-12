@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
-import axiosClient from "../../api/customFetch";
-import { baseURL, pets, users } from "../../api/endPoints";
-import { Table, Space, Typography, Avatar, Tag } from "antd";
+import { useNavigate } from "react-router-dom";
+import axiosClient from "../../../api/customFetch";
+import { baseURL, pets, users } from "../../../api/endPoints";
+import { Table, Space, Typography, Avatar, Tag, Button } from "antd";
 import {
   TeamOutlined,
   GooglePlusOutlined,
   PhoneOutlined,
   BaiduOutlined,
   UnlockOutlined,
+  EyeOutlined,
 } from "@ant-design/icons";
-import avatar from "../../assets/avatar.jpg";
+import avatar from "../../../assets/avatar.jpg";
 
 const { Column } = Table;
 const { Title } = Typography;
 
 const ManageCustomerAccount = () => {
   const [userPetCount, setUserPetCount] = useState([]);
+  const navigate = useNavigate();
 
   const fetchUserData = async () => {
     try {
@@ -50,10 +53,12 @@ const ManageCustomerAccount = () => {
           return acc;
         }, {});
 
-        const usersWithPetCount = userData.map((user) => ({
-          ...user,
-          petCount: petCount[user.user_id] || 0,
-        }));
+        const usersWithPetCount = userData
+          .filter((user) => user.role.role_name === "customer")
+          .map((user) => ({
+            ...user,
+            petCount: petCount[user.user_id] || 0,
+          }));
 
         setUserPetCount(usersWithPetCount);
       } catch (error) {
@@ -63,6 +68,10 @@ const ManageCustomerAccount = () => {
 
     fetchData();
   }, []);
+
+  const handleViewDetails = (user_id) => {
+    navigate(`/admin/manageCustomerAccount/${user_id.toString()}`);
+  };
 
   return (
     <div>
@@ -137,14 +146,30 @@ const ManageCustomerAccount = () => {
               <UnlockOutlined /> Hoạt Động
             </Space>
           }
-          dataIndex="status"
-          key="status"
+          dataIndex="account_status"
+          key="account_status"
           ellipsis={{ showTitle: false }}
           width={200}
-          render={(active) => (
-            <Tag color={active ? "green" : "red"}>
-              {active ? "Hoạt Động" : "Đã Bị Ban"}
+          render={(account_status) => (
+            <Tag color={account_status ? "green" : "red"}>
+              {account_status ? "Hoạt Động" : "Đã Bị Ban"}
             </Tag>
+          )}
+        />
+        <Column
+          title="Hành Động"
+          key="action"
+          width={100}
+          render={(text, user) => (
+            <Space>
+              <Button
+                type="primary"
+                icon={<EyeOutlined />}
+                onClick={() => handleViewDetails(user.user_id)}
+              >
+                Chi Tiết
+              </Button>
+            </Space>
           )}
         />
       </Table>

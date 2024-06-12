@@ -27,7 +27,7 @@ const items = [
     getItem("Đơn Hàng Hoàn Thành", "3", <SnippetsOutlined />),
     getItem("Đơn Hàng Đang Xử Lý", "4", <BookOutlined />),
   ]),
-  getItem("Quản Lý Dịch Vụ", "5", <OrderedListOutlined />),
+  getItem("Quản Lý Dịch Vụ", "manageService", <OrderedListOutlined />),
   getItem("Quản Lý Khiếu Nại", "6", <ProfileOutlined />),
 ];
 
