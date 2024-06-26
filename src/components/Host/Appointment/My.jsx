@@ -80,9 +80,10 @@ function List() {
             dataIndex: 'appointment_id',
             key: 'x',
             width: '20%',
-            render: (id) =>
+            render: (id, record) =>
                 <>
-                    <button type="button" id={`btnDelete_${id}`} className="btn btn-warning"
+                    <button type="button" id={`btnDelete_${id}`}
+                            className="btn btn-warning"  disabled={record.status}
                             onClick={() => handleDelete(id)}>Confirm
                     </button>
                 </>
