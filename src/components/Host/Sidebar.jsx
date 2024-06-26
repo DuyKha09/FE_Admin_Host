@@ -16,19 +16,19 @@ function Sidebar() {
                     </li>
 
                     <li className="nav-item">
-                        <a className="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse"
+                        {/* <a className="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse"
                            href="#">
                             <i className="bi bi-menu-button-wide"></i><span>Category</span><i
                             className="bi bi-chevron-down ms-auto"></i>
-                        </a>
+                        </a> */}
                         <ul id="components-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
                             <li>
-                                <a href="/admin/categories/list">
+                                <a href="/host/categories/list">
                                     <i className="bi bi-circle"></i><span>List Category</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="/admin/categories/create">
+                                <a href="/host/categories/create">
                                     <i className="bi bi-circle"></i><span>Create Category</span>
                                 </a>
                             </li>
@@ -43,12 +43,12 @@ function Sidebar() {
                         </a>
                         <ul id="forms-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
                             <li>
-                                <a href="/admin/services/list">
+                                <a href="/host/services/list">
                                     <i className="bi bi-circle"></i><span>List Services</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="/admin/services/create">
+                                <a href="/host/services/create">
                                     <i className="bi bi-circle"></i><span>Create Services</span>
                                 </a>
                             </li>
@@ -56,33 +56,58 @@ function Sidebar() {
                     </li>
 
                     <li className="nav-item">
-                        <a className="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse"
+                        {/* <a className="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse"
                            href="#">
                             <i className="bi bi-layout-text-window-reverse"></i><span>Brands</span><i
                             className="bi bi-chevron-down ms-auto"></i>
-                        </a>
+                        </a> */}
                         <ul id="tables-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
                             <li>
-                                <a href="/admin/brands/list">
+                                <a href="/host/brands/list">
                                     <i className="bi bi-circle"></i><span>List Brands</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="/admin/brands/create">
+                                <a href="/host/brands/create">
                                     <i className="bi bi-circle"></i><span>Create Brands</span>
                                 </a>
                             </li>
                         </ul>
                     </li>
 
-                    <li className="nav-heading">Pages</li>
+                    <li className="nav-item">
+                        <a className="nav-link collapsed" data-bs-target="#Appointments-nav" data-bs-toggle="collapse"
+                           href="#">
+                            <i className="bi bi-list-ol"></i><span>Appointments</span><i
+                            className="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="Appointments-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
+                            <li>
+                                <a href="/host/my/appointments">
+                                    <i className="bi bi-circle"></i><span>My Appointments</span>
+                                </a>
+                            </li>
+                            {/* <li>
+                                <a href="/host/appointments/list">
+                                    <i className="bi bi-circle"></i><span>List Appointments</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/host/appointments/create">
+                                    <i className="bi bi-circle"></i><span>Create Appointment</span>
+                                </a>
+                            </li> */}
+                        </ul>
+                    </li>
+
+                    {/* <li className="nav-heading">Pages</li>
 
                     <li className="nav-item">
-                        <a className="nav-link collapsed" href="/profile">
+                        <a className="nav-link collapsed" href="#">
                             <i className="bi bi-person"></i>
                             <span>Profile</span>
                         </a>
-                    </li>
+                    </li> */}
                 </ul>
             </aside>
         </>

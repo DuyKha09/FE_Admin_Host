@@ -37,18 +37,13 @@ function List() {
     const columns = [
         {
             title: 'ID',
-            dataIndex: 'id',
-            width: '10%',
+            dataIndex: 'index',
+            width: '30%',
         },
         {
             title: 'Service Name',
             dataIndex: 'service_name',
             width: '40%',
-        },
-        {
-            title: 'Status',
-            dataIndex: 'status',
-            width: '20%',
         },
         {
             title: 'Action',
@@ -57,7 +52,7 @@ function List() {
             width: '20%',
             render: (id) =>
                 <>
-                    <Link to={`/admin/services/detail/${id}`} className="btn btn-primary">
+                    <Link to={`/host/services/detail/${id}`} className="btn btn-primary">
                         Details
                     </Link>
 
@@ -78,23 +73,21 @@ function List() {
     });
 
     const getListCategory = async () => {
-        // await serviceService.adminListService()
-        //     .then((res) => {
-        //         if (res.status === 200) {
-        //             console.log("data", res.data)
-        //             setData(res.data)
-        //             setLoading(false)
-        //         } else {
-        //             alert('Error')
-        //             setLoading(false)
-        //         }
-        //     })
-        //     .catch((err) => {
-        //         setLoading(false)
-        //         console.log(err)
-        //     })
-        setData([])
-        setLoading(false)
+        await serviceService.adminListService()
+            .then((res) => {
+                if (res.status === 200) {
+                    console.log(res.data.data)
+                    setData(res.data.data)
+                    setLoading(false)
+                } else {
+                    alert('Error')
+                    setLoading(false)
+                }
+            })
+            .catch((err) => {
+                setLoading(false)
+                console.log(err)
+            })
     }
 
 
@@ -109,6 +102,12 @@ function List() {
             ...sorter,
         });
     };
+
+    const dataSource = data.map((item, index) => ({
+        ...item,
+        key: item.id,
+        index: index + 1, // Index starts from 1
+    }));
 
     return (
         <>
@@ -134,9 +133,11 @@ function List() {
                         <br/>
                     </div>
                     <Table
+                        // eslint-disable-next-line no-undef
+                       
                         style={{margin: "auto"}}
                         columns={columns}
-                        dataSource={data}
+                        dataSource={dataSource}
                         pagination={tableParams.pagination}
                         loading={loading}
                         onChange={handleTableChange}
