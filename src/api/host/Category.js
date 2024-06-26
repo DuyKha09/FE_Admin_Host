@@ -2,11 +2,11 @@ import {BASE_URL_SERVER} from "../config";
 import axios from "axios";
 
 const API_ENDPOINT = {
-    ADMIN_LIST_CATEGORY: "/admin/api/categories/list",
-    ADMIN_DETAIL_CATEGORY: "/admin/api/categories/detail/",
-    ADMIN_CREATE_CATEGORY: "/admin/api/categories",
-    ADMIN_UPDATE_CATEGORY: "/admin/api/categories/",
-    ADMIN_DELETE_CATEGORY: "/admin/api/categories/",
+    ADMIN_LIST_CATEGORY: "/api/v1/category",
+    ADMIN_DETAIL_CATEGORY: "/api/v1/category/",
+    ADMIN_CREATE_CATEGORY: "/api/v1/category",
+    ADMIN_UPDATE_CATEGORY: "/api/v1/category/",
+    ADMIN_DELETE_CATEGORY: "/api/v1/category/",
 }
 
 class CategoryService {
@@ -14,7 +14,7 @@ class CategoryService {
         const config = {
             headers: {
                 'content-type': 'application/json',
-                'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
+                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`
             }
         };
         return axios.get(BASE_URL_SERVER + API_ENDPOINT.ADMIN_LIST_CATEGORY, config);
@@ -24,7 +24,7 @@ class CategoryService {
         const config = {
             headers: {
                 'content-type': 'application/json',
-                'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
+                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`
             }
         };
         return axios.get(BASE_URL_SERVER + API_ENDPOINT.ADMIN_DETAIL_CATEGORY + id, config);
@@ -34,7 +34,7 @@ class CategoryService {
         const config = {
             headers: {
                 'content-type': 'multipart/form-data',
-                'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
+                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`
             }
         };
         return axios.post(BASE_URL_SERVER + API_ENDPOINT.ADMIN_CREATE_CATEGORY, data, config);
@@ -44,7 +44,7 @@ class CategoryService {
         const config = {
             headers: {
                 'content-type': 'application/json',
-                'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
+                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`
             }
         };
         return axios.patch(BASE_URL_SERVER + API_ENDPOINT.ADMIN_UPDATE_CATEGORY + id, data, config);
@@ -53,8 +53,7 @@ class CategoryService {
     adminDeleteCategory = (id) => {
         const config = {
             headers: {
-                'content-type': 'application/json',
-                'Authorization': `Bearer ${sessionStorage.getItem("accessToken")}`
+                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`
             }
         };
         return axios.delete(BASE_URL_SERVER + API_ENDPOINT.ADMIN_DELETE_CATEGORY + id, config);

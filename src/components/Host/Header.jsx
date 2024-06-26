@@ -19,10 +19,26 @@ function IsAdmin() {
     )
 }
 
+function IsHost() {
+    return (
+        <>
+            <li>
+                <Link className="dropdown-item d-flex align-items-center" to="/host">
+                    <i className="bi bi-0-circle"/>
+                    <span>Host</span>
+                </Link>
+            </li>
+            <li>
+                <hr className="dropdown-divider"/>
+            </li>
+        </>
+    )
+}
+
 function Header() {
-    const AuthName = sessionStorage.getItem("username");
-    const tokenUser = sessionStorage.getItem("accessToken");
-    const idUser = sessionStorage.getItem("id");
+    const AuthName = localStorage.getItem("username");
+    const tokenUser = localStorage.getItem("accessToken");
+    const idUser = localStorage.getItem("id");
     const navigate = useNavigate();
 
     let isAdmin = true;
@@ -31,7 +47,7 @@ function Header() {
         localStorage.clear();
         sessionStorage.clear();
         alert('Logout success!')
-        window.location.href = `/login`;
+        window.location.href = `/`;
     }
 
     useEffect(() => {
@@ -43,7 +59,7 @@ function Header() {
             <header id="header" className="header fixed-top d-flex align-items-center">
 
                 <div className="d-flex align-items-center justify-content-between">
-                    <a href="/" className="logo d-flex align-items-center">
+                    <a href="/host" className="logo d-flex align-items-center">
                         <img src="/assets/admin/img/logo.png" alt=""/>
                         <span className="d-none d-lg-block">Fur Ever Friend</span>
                     </a>
@@ -91,6 +107,8 @@ function Header() {
                                 <li>
                                     <hr className="dropdown-divider"/>
                                 </li>
+
+                                { isAdmin ? IsAdmin : IsHost}
 
                                 <li>
                                     <a className="dropdown-item d-flex align-items-center" href="users-profile.html">
