@@ -293,7 +293,7 @@ function Create() {
                 <div className="modal-dialog modal-dialog-centered">
                     <div className="modal-content">
                         <div className="modal-body d-flex justify-content-center align-items-center">
-                            <img src="" alt="" id="imgMarketing"/>
+                            <img src="" alt="" id="imgMarketing" className="w-50"/>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal"
