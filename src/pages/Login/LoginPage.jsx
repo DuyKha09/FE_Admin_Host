@@ -26,7 +26,7 @@ const LoginPage = () => {
       LocalStorage.setRole(response?.data?.user?.role);
 
       if (response.data.user.role === "admin") {
-        navigation("/admin");
+        navigation("/admin/manageAccount");
         toast.success("Login successful");
       } else if (response.data.user.role === "host") {
         navigation("/host");

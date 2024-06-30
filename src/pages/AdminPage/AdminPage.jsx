@@ -29,7 +29,7 @@ const AdminPage = () => {
         collapsible
         collapsed={collapsed}
         className="sider"
-        width={260}
+        width={220}
         collapsedWidth={80}
       >
         <Sidebar />
