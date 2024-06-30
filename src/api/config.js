@@ -1,1 +1,1 @@
-export const BASE_URL_SERVER = "https://fureverfriend.id.vn/api/v1/";
+export const BASE_URL_SERVER = "https://fureverfriend.id.vn";

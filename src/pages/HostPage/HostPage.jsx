@@ -16,19 +16,19 @@ function App() {
         LocalStorage.clearToken();
       }
     }, [navigate]);
-
+    
     const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
-  
+    
     const OpenSidebar = () => {
       setOpenSidebarToggle(!openSidebarToggle)
     }
   
     return (
-      // <div className='grid-container'>
-      //   <Header OpenSidebar={OpenSidebar}/>
-      //   <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
+      <div className='grid-container'>
+        <Header OpenSidebar={OpenSidebar}/>
+        <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
         <Home />
-      // </div>
+      </div>
     )
   }
   

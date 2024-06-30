@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import Header from '../Header'
 import Sidebar from '../Sidebar'
 import {Table} from 'antd';
-import brandService from '../../../api/host/Brand';
+import appointmentService from '../../../api/host/Appointments.js';
 import {Link} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -10,15 +10,16 @@ import $ from 'jquery';
 
 function List() {
     const handleDelete = async (id) => {
-        if (window.confirm('Are you sure you want to delete?')) {
-            await brandService.adminDeleteBrand(id)
+        if (window.confirm('Are you sure you want to confirm?')) {
+            await appointmentService.adminConfirmAppointment(id)
                 .then((res) => {
-                    console.log("delete", res.data)
-                    alert(`Delete success!`)
+                    console.log("config", res.data)
+                    alert(`Confirm success!`)
                     getListCategory();
                 })
                 .catch((err) => {
-                    console.log(err)
+                    let mess = err.response.data.response.message;
+                    alert(mess);
                 })
         }
     }
@@ -37,27 +38,53 @@ function List() {
     const columns = [
         {
             title: 'ID',
-            dataIndex: 'id',
+            dataIndex: 'index',
+            width: '20%',
+        },
+        {
+            title: 'Pet',
+            dataIndex: ['pet', 'pet_name'],
+            width: '20%',
+        },
+        {
+            title: 'Service',
+            dataIndex: ['service', 'service_name'],
+            width: '20%',
+        },
+        {
+            title: 'appointment_date',
+            dataIndex: 'appointment_date',
+            width: '10%',
+            render: (date) => {
+                const formattedDate = new Date(date).toLocaleDateString('en-GB', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                });
+                return formattedDate;
+            },
+        },
+        {
+            title: 'appointment_time',
+            dataIndex: 'appointment_time',
             width: '10%',
         },
         {
-            title: 'Brand Name',
-            dataIndex: 'brand_name',
-            width: '40%',
+            title: 'status',
+            dataIndex: 'status',
+            width: '10%',
+            render: (status) => (status ? 'Đã xác nhận' : 'Chưa xác nhận'),
         },
         {
             title: 'Action',
-            dataIndex: 'id',
+            dataIndex: 'appointment_id',
             key: 'x',
             width: '20%',
-            render: (id) =>
+            render: (id, record) =>
                 <>
-                    <Link to={`/admin/brands/detail/${id}`} className="btn btn-primary">
-                        Details
-                    </Link>
-
-                    <button type="button" id={`btnDelete_${id}`} className="btn btn-danger"
-                            onClick={() => handleDelete(id)}>Delete
+                    <button type="button" id={`btnDelete_${id}`}
+                            className="btn btn-warning"  disabled={record.status}
+                            onClick={() => handleDelete(id)}>Confirm
                     </button>
                 </>
         },
@@ -73,11 +100,11 @@ function List() {
     });
 
     const getListCategory = async () => {
-        await brandService.adminListBrand()
+        await appointmentService.hostMyAppointment()
             .then((res) => {
                 if (res.status === 200) {
-                    console.log("data", res.data)
-                    setData(res.data)
+                    console.log(res.data.data)
+                    setData(res.data.data)
                     setLoading(false)
                 } else {
                     alert('Error')
@@ -103,6 +130,12 @@ function List() {
         });
     };
 
+    const dataSource = data.map((item, index) => ({
+        ...item,
+        key: item.id,
+        index: index + 1, // Index starts from 1
+    }));
+
     return (
         <>
             <Header/>
@@ -110,26 +143,26 @@ function List() {
 
             <main id="main" className="main">
                 <div className="pagetitle">
-                    <h1>List Brand</h1>
+                    <h1>List Appointment</h1>
                     <nav>
                         <ol className="breadcrumb">
                             <li className="breadcrumb-item"><Link to="/admin/dashboard">Dashboard</Link></li>
-                            <li className="breadcrumb-item">Brand</li>
-                            <li className="breadcrumb-item active">List Brand</li>
+                            <li className="breadcrumb-item">Appointment</li>
+                            <li className="breadcrumb-item active">List Appointment</li>
                         </ol>
                     </nav>
                 </div>
                 {/* End Page Title */}
                 <div className="row">
                     <div className="mb-3 col-md-3">
-                        <h5>Search Brand</h5>
+                        <h5>Search Appointment</h5>
                         <input className="form-control" id="inputSearchCategory" type="text" placeholder="Search.."/>
                         <br/>
                     </div>
                     <Table
                         style={{margin: "auto"}}
                         columns={columns}
-                        dataSource={data}
+                        dataSource={dataSource}
                         pagination={tableParams.pagination}
                         loading={loading}
                         onChange={handleTableChange}

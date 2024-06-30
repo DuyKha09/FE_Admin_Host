@@ -2,64 +2,64 @@ import {BASE_URL_SERVER} from "../config";
 import axios from "axios";
 
 const API_ENDPOINT = {
-    ADMIN_LIST_SERVICE: "/api/v1/service",
-    ADMIN_DETAIL_SERVICE: "/api/v1/service/",
-    ADMIN_CREATE_SERVICE: "/api/v1/service",
-    ADMIN_UPDATE_SERVICE: "/api/v1/service/",
-    ADMIN_DELETE_SERVICE: "/api/v1/service/",
+    ADMIN_LIST_LOCATION: "/api/v1/location",
+    ADMIN_DETAIL_LOCATION: "/api/v1/location/",
+    ADMIN_CREATE_LOCATION: "/api/v1/location",
+    ADMIN_UPDATE_LOCATION: "/api/v1/location/",
+    ADMIN_DELETE_LOCATION: "/api/v1/location/",
 }
 
-class ServiceService {
-    adminListService = () => {
+class LocationService {
+    adminListLocation = () => {
         const config = {
             headers: {
                 'content-type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem("accessToken")}`
             }
         };
-        return axios.get(BASE_URL_SERVER + API_ENDPOINT.ADMIN_LIST_SERVICE, config);
+        return axios.get(BASE_URL_SERVER + API_ENDPOINT.ADMIN_LIST_LOCATION, config);
     }
 
-    adminDetailService = (id) => {
+    adminDetailLocation = (id) => {
         const config = {
             headers: {
                 'content-type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem("accessToken")}`
             }
         };
-        return axios.get(BASE_URL_SERVER + API_ENDPOINT.ADMIN_DETAIL_SERVICE + id, config);
+        return axios.get(BASE_URL_SERVER + API_ENDPOINT.ADMIN_DETAIL_LOCATION + id, config);
     }
 
-    adminCreateService = (data) => {
+    adminCreateLocation = (data) => {
         const config = {
             headers: {
                 'content-type': 'multipart/form-data',
                 'Authorization': `Bearer ${localStorage.getItem("accessToken")}`
             }
         };
-        return axios.post(BASE_URL_SERVER + API_ENDPOINT.ADMIN_CREATE_SERVICE, data, config);
+        return axios.post(BASE_URL_SERVER + API_ENDPOINT.ADMIN_CREATE_LOCATION, data, config);
     }
 
-    adminUpdateService = (id, data) => {
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data',
-                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`
-            }
-        };
-        return axios.patch(BASE_URL_SERVER + API_ENDPOINT.ADMIN_UPDATE_SERVICE + id, data, config);
-    }
-
-    adminDeleteService = (id) => {
+    adminUpdateLocation = (id, data) => {
         const config = {
             headers: {
                 'content-type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem("accessToken")}`
             }
         };
-        return axios.delete(BASE_URL_SERVER + API_ENDPOINT.ADMIN_DELETE_SERVICE + id, config);
+        return axios.patch(BASE_URL_SERVER + API_ENDPOINT.ADMIN_UPDATE_LOCATION + id, data, config);
+    }
+
+    adminDeleteLocation = (id) => {
+        const config = {
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`
+            }
+        };
+        return axios.delete(BASE_URL_SERVER + API_ENDPOINT.ADMIN_DELETE_LOCATION + id, config);
     }
 }
 
-const serviceService = new ServiceService();
-export default serviceService;
+const locationService = new LocationService();
+export default locationService;
