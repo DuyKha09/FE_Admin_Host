@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axiosClient from "../../../api/customFetch";
 import { baseURL, users } from "../../../api/endPoints";
-import { Table, Space, Typography, Avatar, Tag } from "antd";
+import { Table, Space, Typography, Avatar, Tag, Switch, Modal } from "antd";
 import {
   TeamOutlined,
   GooglePlusOutlined,
   PhoneOutlined,
   UserSwitchOutlined,
   UnlockOutlined,
+  IssuesCloseOutlined,
 } from "@ant-design/icons";
 import avatar from "../../../assets/avatar.jpg";
 
@@ -16,6 +17,9 @@ const { Title } = Typography;
 
 const ManageAccount = () => {
   const [userData, setUserData] = useState([]);
+  const [confirmModalVisible, setConfirmModalVisible] = useState(false);
+  const [confirmUserId, setConfirmUserId] = useState(null);
+  const [confirmUserStatus, setConfirmUserStatus] = useState(null);
 
   const fetchUserData = async () => {
     try {
@@ -29,6 +33,46 @@ const ManageAccount = () => {
   useEffect(() => {
     fetchUserData();
   }, []);
+
+  const showConfirmModal = (userId, status) => {
+    setConfirmUserId(userId);
+    setConfirmUserStatus(status);
+    setConfirmModalVisible(true);
+  };
+
+  const handleConfirmChangeStatus = () => {
+    updateUserStatus(confirmUserId, confirmUserStatus);
+    setConfirmModalVisible(false);
+  };
+
+  const updateUserStatus = async (userId, activeStatus) => {
+    try {
+      const response = await axiosClient.put(
+        `${baseURL}/admin/manageAccount/${userId}`,
+        {
+          status: activeStatus,
+        }
+      );
+      if (response.status === 200) {
+        const updatedUsers = users.map((user) => {
+          if (user.id === userId) {
+            return { ...user, active: activeStatus };
+          }
+
+          return user;
+        });
+        setUserData((prevState) => ({
+          ...prevState,
+          users: updatedUsers,
+        }));
+      }
+      fetchUserData(1);
+      toast.success("Update status success");
+    } catch (error) {
+      console.error("Error updating user status:", error);
+      toast.error("Error updating user status");
+    }
+  };
 
   return (
     <div>
@@ -116,7 +160,36 @@ const ManageAccount = () => {
             </Tag>
           )}
         />
+        <Column
+          title={
+            <Space>
+              <IssuesCloseOutlined />
+              Action
+            </Space>
+          }
+          key="phone_number"
+          ellipsis={{ showTitle: false }}
+          width={150}
+          render={(text, record) => (
+            <Space size="middle">
+              <Switch
+                checked={record.status}
+                onChange={(checked) =>
+                  showConfirmModal(record._id, checked ? true : false)
+                }
+              />
+            </Space>
+          )}
+        />
       </Table>
+      <Modal
+        title="Confirm Status Change"
+        visible={confirmModalVisible}
+        onOk={handleConfirmChangeStatus}
+        onCancel={() => setConfirmModalVisible(false)}
+      >
+        Are you sure you want to change this user's status?
+      </Modal>
     </div>
   );
 };

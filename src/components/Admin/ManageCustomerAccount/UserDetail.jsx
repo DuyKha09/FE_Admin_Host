@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Descriptions, theme, Card, Image, Empty, Typography } from "antd";
+import {
+  Descriptions,
+  theme,
+  Card,
+  Image,
+  Empty,
+  Typography,
+  Menu,
+} from "antd";
 import { Content } from "antd/es/layout/layout";
 import { useParams } from "react-router-dom";
 import axiosClient from "../../../api/customFetch";
@@ -19,7 +27,7 @@ const UserDetail = () => {
   const [userPets, setUserPets] = useState([]);
   const [petTypes, setPetTypes] = useState([]);
   const [petBreeds, setPetBreeds] = useState([]);
-  const [openKeys, setOpenKeys] = useState([]);
+  const [stateOpenKeys, setStateOpenKeys] = useState([]);
 
   const fetchUserDetail = async () => {
     try {
@@ -74,8 +82,8 @@ const UserDetail = () => {
     return petBreeds.find((breed) => breed.id === breedId);
   };
 
-  const onOpenChange = (keys) => {
-    setOpenKeys(keys);
+  const onOpenChange = (openKeys) => {
+    setStateOpenKeys(openKeys);
   };
 
   return (
@@ -129,91 +137,74 @@ const UserDetail = () => {
                   </span>
                 </Descriptions.Item>
               </Descriptions>
-              <h3 style={{ marginBottom: 16 }}>Thông Tin Thú Cưng</h3>
-              {userPets.length === 0 ? (
-                <Empty description="Hiện Khách Hàng Này Chưa Có Pet" />
-              ) : (
-                userPets.map((pet) => (
-                  <Card
-                    type="inner"
-                    title={`Tên Thú Cưng: ${pet.pet_name}`}
-                    key={pet.id}
-                    style={{ marginBottom: "20px" }}
-                    extra={
-                      <a
-                        href="#"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          const keys = openKeys.includes(pet.id)
-                            ? openKeys.filter((key) => key !== pet.id)
-                            : [...openKeys, pet.id];
-                          onOpenChange(keys);
-                        }}
+              <Card
+                title="Thông Tin Thú Cưng"
+                style={{ marginBottom: 24 }}
+                bordered={false}
+              >
+                {userPets.length === 0 ? (
+                  <Empty description="Hiện Khách Hàng Này Chưa Có Pet" />
+                ) : (
+                  userPets.map((pet) => (
+                    <Menu
+                      mode="inline"
+                      openKeys={stateOpenKeys}
+                      onOpenChange={onOpenChange}
+                    >
+                      <Card
+                        type="inner"
+                        title={`Tên Thú Cưng: ${pet.pet_name}`}
+                        key={pet.id}
+                        style={{ marginBottom: "20px" }}
                       >
-                        {openKeys.includes(pet.id) ? (
-                          <span
-                            style={{ fontSize: "16px", lineHeight: "16px" }}
-                          >
-                            &#9660;
-                          </span>
-                        ) : (
-                          <span
-                            style={{ fontSize: "16px", lineHeight: "16px" }}
-                          >
-                            &#9654;
-                          </span>
-                        )}
-                      </a>
-                    }
-                  >
-                    {openKeys.includes(pet.id) && (
-                      <div
-                        style={{
-                          display: "grid",
-                          gridTemplateColumns: "1fr auto",
-                          gridGap: "8px",
-                        }}
-                      >
-                        <div>
-                          <Descriptions>
-                            <Descriptions.Item label="Loại Thú Cưng">
-                              {getPetTypeById(pet.pet_type_id)?.type_name}
-                            </Descriptions.Item>
-                            <Descriptions.Item label="Giống Thú Cưng">
-                              {getPetBreedById(pet.pet_breed_id)?.breed_name}
-                            </Descriptions.Item>
-                            <Descriptions.Item label="Chiều Cao">
-                              {pet.height} cm
-                            </Descriptions.Item>
-                            <Descriptions.Item label="Cân Nặng">
-                              {pet.weight} kg
-                            </Descriptions.Item>
-                            <Descriptions.Item></Descriptions.Item>
-                            <Descriptions.Item></Descriptions.Item>
-                            <Descriptions.Item label="Đặc Điểm">
-                              {
-                                getPetBreedById(pet.pet_breed_id)
-                                  ?.breed_description
-                              }
-                            </Descriptions.Item>
-                          </Descriptions>
+                        <div
+                          style={{
+                            display: "grid",
+                            gridTemplateColumns: "1fr auto",
+                            gridGap: "8px",
+                          }}
+                        >
+                          <div>
+                            <Descriptions>
+                              <Descriptions.Item label="Loại Thú Cưng">
+                                {getPetTypeById(pet.pet_type_id)?.type_name}
+                              </Descriptions.Item>
+                              <Descriptions.Item label="Giống Thú Cưng">
+                                {getPetBreedById(pet.pet_breed_id)?.breed_name}
+                              </Descriptions.Item>
+                              <Descriptions.Item label="Chiều Cao">
+                                {pet.height} cm
+                              </Descriptions.Item>
+                              <Descriptions.Item label="Cân Nặng">
+                                {pet.weight} kg
+                              </Descriptions.Item>
+                              <Descriptions.Item></Descriptions.Item>
+                              <Descriptions.Item></Descriptions.Item>
+                              <Descriptions.Item label="Đặc Điểm">
+                                {
+                                  getPetBreedById(pet.pet_breed_id)
+                                    ?.breed_description
+                                }
+                              </Descriptions.Item>
+                            </Descriptions>
+                          </div>
+                          <div>
+                            <Image
+                              src={pet.image}
+                              alt={pet.pet_name}
+                              style={{
+                                width: 300,
+                                height: 300,
+                                borderRadius: 30,
+                              }}
+                            />
+                          </div>
                         </div>
-                        <div>
-                          <Image
-                            src={pet.image}
-                            alt={pet.pet_name}
-                            style={{
-                              width: 300,
-                              height: 300,
-                              borderRadius: 30,
-                            }}
-                          />
-                        </div>
-                      </div>
-                    )}
-                  </Card>
-                ))
-              )}
+                      </Card>
+                    </Menu>
+                  ))
+                )}
+              </Card>
             </Card>
           </div>
         </Content>

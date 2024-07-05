@@ -3,11 +3,9 @@ import React from "react";
 import {
   UserOutlined,
   ProfileOutlined,
-  OrderedListOutlined,
-  CarryOutOutlined,
-  SnippetsOutlined,
-  BookOutlined,
   SolutionOutlined,
+  LineChartOutlined,
+  SlidersOutlined,
 } from "@ant-design/icons";
 import avatar from "../../assets/avatar.jpg";
 import { useNavigate } from "react-router-dom";
@@ -21,13 +19,10 @@ function getItem(label, key, icon, children) {
   };
 }
 const items = [
+  getItem("Quản Lý Doanh Thu", "1", <LineChartOutlined />),
   getItem("Quản Lý Tài Khoản", "manageAccount", <UserOutlined />),
   getItem("Quản Lý Khách Hàng", "manageCustomerAccount", <SolutionOutlined />),
-  getItem("Quản Lý Đơn Hàng", "2", <CarryOutOutlined />, [
-    getItem("Đơn Hàng Hoàn Thành", "3", <SnippetsOutlined />),
-    getItem("Đơn Hàng Đang Xử Lý", "4", <BookOutlined />),
-  ]),
-  getItem("Quản Lý Dịch Vụ", "manageService", <OrderedListOutlined />),
+  getItem("Quản Lý Dịch Vụ", "manageService", <SlidersOutlined />),
   getItem("Quản Lý Khiếu Nại", "6", <ProfileOutlined />),
 ];
 
@@ -46,7 +41,7 @@ export const Sidebar = () => {
       </Flex>
       <Menu
         mode="inline"
-        defaultSelectedKeys={["1"]}
+        defaultSelectedKeys={["manageAccount"]}
         className="menu-bar"
         items={items}
         onClick={({ key }) => {
