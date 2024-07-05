@@ -6,10 +6,6 @@
     font-family: 'Poppins', sans-serif;
 }
 
-body, html {
-    overflow: auto; /* Hoặc overflow: visible; */
-}
-
 body{
   background: #dde6ed;
 }

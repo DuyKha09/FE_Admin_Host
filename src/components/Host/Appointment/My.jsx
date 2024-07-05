@@ -39,7 +39,7 @@ function List() {
         {
             title: 'ID',
             dataIndex: 'index',
-            width: '20%',
+            width: '15%',
         },
         {
             title: 'Pet',
@@ -79,12 +79,12 @@ function List() {
             title: 'Action',
             dataIndex: 'appointment_id',
             key: 'x',
-            width: '20%',
+            width: '25%',
             render: (id, record) =>
                 <>
                     <button type="button" id={`btnDelete_${id}`}
-                            className="btn btn-warning"  disabled={record.status}
-                            onClick={() => handleDelete(id)}>Confirm
+                            className={record.status ? 'btn btn-success' : 'btn btn-warning'} disabled={record.status}
+                            onClick={() => handleDelete(id)}>{record.status ? 'Đã xác nhận' : 'Xác nhận'}
                     </button>
                 </>
         },
