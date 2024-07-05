@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import Css from './Lib/StyleSheet.jsx';
+import CustomCss from './Lib/Custom.jsx';
 import Script from './Lib/Script.jsx';
 
 function IsAdmin() {
@@ -56,6 +57,7 @@ function Header() {
     return (
         <>
             <Css/>
+            <CustomCss/>
             <header id="header" className="header fixed-top d-flex align-items-center">
 
                 <div className="d-flex align-items-center justify-content-between">
