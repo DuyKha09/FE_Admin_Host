@@ -5,7 +5,6 @@ import AdminPage from "./pages/AdminPage/AdminPage";
 import LoginPage from "./pages/Login/LoginPage";
 import HostPage from "./pages/HostPage/HostPage";
 
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 /* Category */
@@ -36,6 +35,7 @@ import ManageCustomerAccount from "./components/Admin/ManageCustomerAccount/Mana
 import UserDetail from "./components/Admin/ManageCustomerAccount/UserDetail";
 import ManageService from "./components/Admin/ManageService/ManageService";
 import ServiceDetail from "./components/Admin/ManageService/ServiceDetail";
+import Payment from "./components/Host/Payment";
 
 function App() {
 
@@ -82,6 +82,7 @@ function App() {
                     <Route path='/host/appointments/list' element={<ListAppointment/>}/>
                     <Route path='/host/appointments/create' element={<CreateAppointment/>}/>
                     <Route path='/host/appointments/detail/:id' element={<DetailAppointment/>}/>
+                    <Route path='/host/payment/show' element={<Payment/>}/>
                 </Routes>
             </BrowserRouter>
         </>

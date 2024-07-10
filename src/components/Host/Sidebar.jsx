@@ -100,14 +100,14 @@ function Sidebar() {
                         </ul>
                     </li>
 
-                    {/* <li className="nav-heading">Pages</li>
+                    <li className="nav-heading">Chọn hình thức thanh toán</li>
 
                     <li className="nav-item">
-                        <a className="nav-link collapsed" href="#">
+                        <a className="nav-link collapsed" href="/host/payment/show">
                             <i className="bi bi-person"></i>
-                            <span>Profile</span>
+                            <span>Payment</span>
                         </a>
-                    </li> */}
+                    </li>
                 </ul>
             </aside>
         </>

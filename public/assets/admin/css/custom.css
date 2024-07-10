@@ -9,3 +9,7 @@
 body, html {
     overflow: auto; /* Hoặc overflow: visible; */
 }
+
+.btnConfirm {
+    width: 180px !important;
+}
