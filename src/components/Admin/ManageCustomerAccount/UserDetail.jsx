@@ -88,7 +88,7 @@ const UserDetail = () => {
 
   return (
     <div>
-      <Title level={4} style={{ marginTop: -25 }}>
+      <Title level={4} style={{ marginTop: -25, marginLeft: 30 }}>
         Quản Lý Thông Tin Khách Hàng
       </Title>
       <div

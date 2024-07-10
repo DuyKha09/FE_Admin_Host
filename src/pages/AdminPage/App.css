@@ -55,19 +55,19 @@
 }
 
 /* button, and color */
-.ant-btn:hover{
+/* .ant-btn:hover{
   color: #F68C1F !important;
   border-color: #f68b1f !important;
-}
+} */
 .ant-btn-primary{
   background-color: #e8b888;
 }
-.ant-btn-primary:hover{
+/* .ant-btn-primary:hover{
   background-color: #F68C1F !important;
   color: #ffff !important;
-}
+} */
 .ant-menu-light .ant-menu-submenu-selected >.ant-menu-submenu-title{
-  color: #f68b1f;
+  color: #030201;
 }
 .primary--color{
   color: #F68C1F !important;

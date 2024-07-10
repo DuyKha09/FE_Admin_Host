@@ -1,12 +1,11 @@
-import { Input, Button, Tag, Typography } from "antd";
+import { Button, Space, Tag, Typography, Modal } from "antd";
 import { Content } from "antd/es/layout/layout";
 import axiosClient from "../../../api/customFetch";
-import { baseURL, services } from "../../../api/endPoints";
+import { baseURL, services, updateServiceStatus } from "../../../api/endPoints";
 import { useEffect, useState } from "react";
 import { EditOutlined } from "@ant-design/icons";
-import { Avatar, Card } from "antd";
+import { Card } from "antd";
 import { useNavigate } from "react-router-dom";
-import avatar from "../../../assets/avatar.jpg";
 
 const { Meta } = Card;
 const { Title } = Typography;
@@ -15,6 +14,8 @@ const ManageService = () => {
   const navigate = useNavigate();
 
   const [service, setService] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedServiceId, setSelectedServiceId] = useState(null);
 
   const fetchServiceData = async () => {
     try {
@@ -34,9 +35,35 @@ const ManageService = () => {
     navigate(`/admin/manageService/${id.toString()}`);
   };
 
+  const handleApproveService = async (id) => {
+    try {
+      await axiosClient.patch(`${baseURL}${updateServiceStatus}/${id}`);
+      fetchServiceData();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const showModal = (id) => {
+    setSelectedServiceId(id);
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    if (selectedServiceId) {
+      handleApproveService(selectedServiceId);
+    }
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+    setSelectedServiceId(null);
+  };
+
   return (
     <div>
-      <Title level={4} style={{ marginTop: -25 }}>
+      <Title level={4} style={{ marginTop: -25, marginLeft: 30 }}>
         Quản Lý Dịch Vụ
       </Title>
       <Content>
@@ -80,16 +107,18 @@ const ManageService = () => {
                 />
               }
               actions={[
-                <EditOutlined
-                  key="edit"
-                  onClick={() =>
-                    handleViewDetails(service.id)
-                  }
-                />,
-              ]}
+                <Space key="edit" onClick={() => handleViewDetails(service.id)} style={{color: "blue", marginTop: 5}}>
+                  <EditOutlined />
+                  Xem Chi Tiết
+                </Space>,
+                !service.status && (
+                  <Button key="approve" onClick={() => showModal(service.id)} style={{background: "green", color: "white"}}>
+                    Duyệt
+                  </Button>
+                ),
+              ].filter(Boolean)}
             >
               <Meta
-                avatar={<Avatar src={avatar} />}
                 title={service.service_name}
                 description={
                   <div>
@@ -101,12 +130,26 @@ const ManageService = () => {
                       }}
                     >
                       <p>Thương Hiệu: {service.brand.brand_name}</p>
-                      <p style={{ color: "red" }}>${service.price}</p>{" "}
                     </div>
-                    {service.status === false && (
-                      <Tag color="blue">Processing</Tag>
-                    )}
-                    {service.status === true && <Tag color="green">Done</Tag>}
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                    >
+                      <p style={{ color: "red" }}>Giá: {service.price} VND</p>
+                      {service.status === false && (
+                        <Tag color="blue" style={{ marginTop: -17 }}>
+                          Chờ duyệt
+                        </Tag>
+                      )}
+                      {service.status === true && (
+                        <Tag color="green" style={{ marginTop: -17 }}>
+                          Đã duyệt
+                        </Tag>
+                      )}
+                    </div>
                   </div>
                 }
               />
@@ -114,6 +157,16 @@ const ManageService = () => {
           ))}
         </div>
       </Content>
+      <Modal
+        title="Xác nhận duyệt dịch vụ"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        okText="Xác nhận"
+        cancelText="Hủy bỏ"
+      >
+        <p>Bạn có chắc chắn muốn duyệt dịch vụ này không?</p>
+      </Modal>
       <style jsx>{`
         .hide-scrollbar {
           -ms-overflow-style: none; /* IE and Edge */

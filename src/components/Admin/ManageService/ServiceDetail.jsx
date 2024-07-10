@@ -32,7 +32,7 @@ const ServiceDetail = () => {
 
   return (
     <div style={{ height: "80vh", marginBottom: "30px" }}>
-      <Title level={4} style={{ marginTop: -25 }}>
+      <Title level={4} style={{ marginTop: -25, marginLeft: 30 }}>
         Quản Lý Dịch Vụ
       </Title>
       <Content
@@ -54,22 +54,22 @@ const ServiceDetail = () => {
             <Row gutter={[16, 16]}>
               <Col span={14}>
                 <Descriptions style={{ marginBottom: 24 }}>
-                  <Descriptions.Item label="Dịch vụ">
+                  <Descriptions.Item label="Dịch vụ" span={3}>
                     {service.service_name}
                   </Descriptions.Item>
-                  <Descriptions.Item label="Thời gian bắt đầu">
+                  <Descriptions.Item label="Thời gian mở cửa">
                     {service.starttime}
                   </Descriptions.Item>
-                  <Descriptions.Item label="Thời gian kết thúc">
+                  <Descriptions.Item label="Thời gian đóng cửa" span={3}>
                     {service.endtime}
                   </Descriptions.Item>
-                  <Descriptions.Item label="Thương hiệu">
+                  <Descriptions.Item label="Thương hiệu" span={3}>
                     {brand.brand_name}
                   </Descriptions.Item>
-                  <Descriptions.Item label="Loại dịch vụ">
+                  <Descriptions.Item label="Loại dịch vụ" span={3}>
                     {category.category_name}
                   </Descriptions.Item>
-                  <Descriptions.Item label="Giá tiền">
+                  <Descriptions.Item label="Giá tiền" span={3}>
                     ${service.price}
                   </Descriptions.Item>
                   <Descriptions.Item label="Tóm tắt về dịch vụ" span={3}>
@@ -87,7 +87,7 @@ const ServiceDetail = () => {
                 <Image
                   src={service.image}
                   alt={service.service_name}
-                  style={{ width: "100%", height: "auto", borderRadius: 30 }}
+                  style={{ width: "130%", height: "auto", borderRadius: 30 }}
                 />
               </Col>
             </Row>

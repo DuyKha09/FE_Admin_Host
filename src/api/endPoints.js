@@ -8,3 +8,6 @@ export const pets = "/pet";
 export const pet_type = "/pet-type";
 export const pet_breed = "/pet-breed";
 export const services = "/service";
+export const updateAccountStatus = "/user/status";
+export const updateServiceStatus = "/service/approved";
+
