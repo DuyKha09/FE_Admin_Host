@@ -10,6 +10,7 @@ import {
   BaiduOutlined,
   UnlockOutlined,
   EyeOutlined,
+  IssuesCloseOutlined
 } from "@ant-design/icons";
 import avatar from "../../../assets/avatar.jpg";
 
@@ -74,8 +75,8 @@ const ManageCustomerAccount = () => {
   };
 
   return (
-    <div>
-      <Title level={4} style={{ marginTop: -25 }}>
+    <div style={{marginLeft: 30}}>
+      <Title level={4} style={{ marginTop: -25}}>
         Quản Lý Tài Khoản Khách Hàng
       </Title>
       <Table
@@ -98,9 +99,9 @@ const ManageCustomerAccount = () => {
           dataIndex="full_name"
           key="full_name"
           ellipsis={{ showTitle: false }}
-          width={200}
+          width={220}
           render={(full_name) => (
-            <Space>
+            <Space >
               <Avatar src={avatar} />
               {full_name}
             </Space>
@@ -115,7 +116,8 @@ const ManageCustomerAccount = () => {
           dataIndex="email"
           key="email"
           ellipsis={{ showTitle: false }}
-          width={200}
+          width={180}
+          
         />
         <Column
           title={
@@ -126,7 +128,8 @@ const ManageCustomerAccount = () => {
           dataIndex="phone_number"
           key="phone_number"
           ellipsis={{ showTitle: false }}
-          width={200}
+          width={170}
+          align="center"
         />
         <Column
           title={
@@ -137,8 +140,13 @@ const ManageCustomerAccount = () => {
           dataIndex="petCount"
           key="petCount"
           ellipsis={{ showTitle: false }}
-          width={200}
-          render={(petCount) => <Space>{petCount} con</Space>}
+          width={150}
+          align="center"
+          render={(petCount) => (
+            <Space style={{ justifyContent: "center", width: "100%" }}>
+              {petCount} con
+            </Space>
+          )}
         />
         <Column
           title={
@@ -149,25 +157,35 @@ const ManageCustomerAccount = () => {
           dataIndex="account_status"
           key="account_status"
           ellipsis={{ showTitle: false }}
-          width={200}
+          width={160}
+          align="center"
           render={(account_status) => (
-            <Tag color={account_status ? "green" : "red"}>
-              {account_status ? "Hoạt Động" : "Đã Bị Ban"}
+            <Tag
+              color={account_status ? "green" : "red"}
+              style={{ display: "flex", justifyContent: "center", width: "100%" }}
+            >
+              {account_status ? "Đang hoạt động" : "Tài khoản đã bị cấm"}
             </Tag>
           )}
         />
         <Column
-          title="Hành Động"
+          title={
+            <Space style={{ justifyContent: "center"}}>
+              <IssuesCloseOutlined /> Hành Động
+            </Space>
+          }
           key="action"
           width={100}
+          align="center"
           render={(text, user) => (
-            <Space>
+            <Space style={{ justifyContent: "center", width: "100%" }}>
               <Button
                 type="primary"
                 icon={<EyeOutlined />}
                 onClick={() => handleViewDetails(user.user_id)}
+                style={{fontSize: 11, background: "#97CADB"}}
               >
-                Chi Tiết
+                Xem Chi Tiết
               </Button>
             </Space>
           )}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axiosClient from "../../../api/customFetch";
-import { baseURL, users } from "../../../api/endPoints";
-import { Table, Space, Typography, Avatar, Tag, Switch, Modal } from "antd";
+import { baseURL, updateAccountStatus, users } from "../../../api/endPoints";
+import { Table, Space, Typography, Avatar, Tag, Button, Modal } from "antd";
 import {
   TeamOutlined,
   GooglePlusOutlined,
@@ -10,6 +10,8 @@ import {
   UnlockOutlined,
   IssuesCloseOutlined,
 } from "@ant-design/icons";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import avatar from "../../../assets/avatar.jpg";
 
 const { Column } = Table;
@@ -45,37 +47,25 @@ const ManageAccount = () => {
     setConfirmModalVisible(false);
   };
 
-  const updateUserStatus = async (userId, activeStatus) => {
+  const updateUserStatus = async (userId, status) => {
     try {
-      const response = await axiosClient.put(
-        `${baseURL}/admin/manageAccount/${userId}`,
-        {
-          status: activeStatus,
-        }
+      await axiosClient.patch(`${baseURL}${updateAccountStatus}/${userId}`, {
+        account_status: status,
+      });
+      setUserData((prevData) =>
+        prevData.map((user) =>
+          user.user_id === userId ? { ...user, account_status: status } : user
+        )
       );
-      if (response.status === 200) {
-        const updatedUsers = users.map((user) => {
-          if (user.id === userId) {
-            return { ...user, active: activeStatus };
-          }
-
-          return user;
-        });
-        setUserData((prevState) => ({
-          ...prevState,
-          users: updatedUsers,
-        }));
-      }
-      fetchUserData(1);
-      toast.success("Update status success");
+      toast.success("Cập nhật trạng thái tài khoản thành công!");
     } catch (error) {
-      console.error("Error updating user status:", error);
-      toast.error("Error updating user status");
+      toast.error("Có lỗi xảy ra khi cập nhật trạng thái tài khoản.");
+      console.log(error);
     }
   };
 
   return (
-    <div>
+    <div style={{marginLeft: 30}}>
       <Title level={4} style={{ marginTop: -25 }}>
         Quản Lý Tài Khoản
       </Title>
@@ -86,12 +76,13 @@ const ManageAccount = () => {
           borderColor: "1px solid #ccc",
           boxShadow: "0 -2px 8px rgba(0, 0, 0, 0.15)",
           background: "white",
+          textAlign: "center",
         }}
         pagination={{ pageSize: 7 }}
       >
         <Column
           title={
-            <Space>
+            <Space style={{ justifyContent: "center" }}>
               <TeamOutlined /> Tên Khách Hàng
             </Space>
           }
@@ -100,7 +91,7 @@ const ManageAccount = () => {
           ellipsis={{ showTitle: false }}
           width={200}
           render={(full_name) => (
-            <Space>
+            <Space style={{ justifyContent: "center" }}>
               <Avatar src={avatar} />
               {full_name}
             </Space>
@@ -108,7 +99,7 @@ const ManageAccount = () => {
         />
         <Column
           title={
-            <Space>
+            <Space style={{ justifyContent: "center" }}>
               <GooglePlusOutlined /> Email
             </Space>
           }
@@ -119,77 +110,96 @@ const ManageAccount = () => {
         />
         <Column
           title={
-            <Space>
+            <Space style={{ justifyContent: "center" }}>
               <PhoneOutlined /> Số Điện Thoại
             </Space>
           }
           dataIndex="phone_number"
           key="phone_number"
           ellipsis={{ showTitle: false }}
-          width={200}
+          width={170}
         />
         <Column
           title={
-            <Space>
+            <Space style={{ justifyContent: "center" }}>
               <UserSwitchOutlined /> Vai trò
             </Space>
           }
           dataIndex="role"
           key="role"
           ellipsis={{ showTitle: false }}
-          width={200}
+          width={120}
           render={(role) => (
-            <Tag color={role.role_name === "customer" ? "blue" : "yellow"}>
+            <Tag
+              color={role.role_name === "customer" ? "blue" : "yellow"}
+              style={{ display: "flex", justifyContent: "center" }}
+            >
               {role.role_name}
             </Tag>
           )}
         />
         <Column
           title={
-            <Space>
+            <Space style={{ justifyContent: "center" }}>
               <UnlockOutlined /> Hoạt Động
             </Space>
           }
           dataIndex="account_status"
           key="account_status"
           ellipsis={{ showTitle: false }}
-          width={200}
+          width={160}
           render={(account_status) => (
-            <Tag color={account_status ? "green" : "red"}>
-              {account_status ? "Hoạt Động" : "Đã Bị Ban"}
+            <Tag
+              color={account_status ? "green" : "red"}
+              style={{ display: "flex", justifyContent: "center" }}
+            >
+              {account_status ? "Đang hoạt động" : "Tài khoản đã bị cấm"}
             </Tag>
           )}
         />
         <Column
           title={
-            <Space>
-              <IssuesCloseOutlined />
-              Action
+            <Space style={{ justifyContent: "center", marginLeft: 5 }}>
+              <IssuesCloseOutlined /> Hành Động
             </Space>
           }
-          key="phone_number"
+          key="action"
           ellipsis={{ showTitle: false }}
-          width={150}
+          width={120}
           render={(text, record) => (
-            <Space size="middle">
-              <Switch
-                checked={record.status}
-                onChange={(checked) =>
-                  showConfirmModal(record._id, checked ? true : false)
-                }
-              />
+            <Space size="middle" style={{ justifyContent: "center" }}>
+              {record.account_status ? (
+                <Button
+                  style={{ background: "red", color: "white", fontSize: 12 }}
+                  onClick={() => showConfirmModal(record.user_id, false)}
+                >
+                  Cấm tài khoản
+                </Button>
+              ) : (
+                <Button
+                  style={{ background: "green", color: "white", fontSize: 12 }}
+                  onClick={() => showConfirmModal(record.user_id, true)}
+                >
+                  Mở tài khoản
+                </Button>
+              )}
             </Space>
           )}
         />
       </Table>
+
       <Modal
-        title="Confirm Status Change"
+        title="Xác nhận thay đổi trạng thái tài khoản"
         visible={confirmModalVisible}
         onOk={handleConfirmChangeStatus}
         onCancel={() => setConfirmModalVisible(false)}
+        okText="Xác nhận"
+        cancelText="Hủy bỏ"
       >
-        Are you sure you want to change this user's status?
+        Bạn có chắc là bạn muốn thay đổi trạng thái của tài khoản này không?
       </Modal>
+
+      <ToastContainer />
     </div>
   );
 };
