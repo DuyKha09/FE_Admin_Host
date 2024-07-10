@@ -87,7 +87,7 @@ const ServiceDetail = () => {
                 <Image
                   src={service.image}
                   alt={service.service_name}
-                  style={{ width: "130%", height: "auto", borderRadius: 30 }}
+                  style={{ width: "80%", height: "auto", borderRadius: 30 }}
                 />
               </Col>
             </Row>
