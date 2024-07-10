@@ -39,7 +39,7 @@ function List() {
         {
             title: 'ID',
             dataIndex: 'index',
-            width: '20%',
+            width: '15%',
         },
         {
             title: 'Pet',
@@ -52,7 +52,7 @@ function List() {
             width: '20%',
         },
         {
-            title: 'appointment_date',
+            title: 'Date',
             dataIndex: 'appointment_date',
             width: '10%',
             render: (date) => {
@@ -65,12 +65,12 @@ function List() {
             },
         },
         {
-            title: 'appointment_time',
+            title: 'Time',
             dataIndex: 'appointment_time',
             width: '10%',
         },
         {
-            title: 'status',
+            title: 'Status',
             dataIndex: 'status',
             width: '10%',
             render: (status) => (status ? 'Đã xác nhận' : 'Chưa xác nhận'),
@@ -79,12 +79,12 @@ function List() {
             title: 'Action',
             dataIndex: 'appointment_id',
             key: 'x',
-            width: '20%',
+            width: '100px',
             render: (id, record) =>
                 <>
                     <button type="button" id={`btnDelete_${id}`}
-                            className="btn btn-warning"  disabled={record.status}
-                            onClick={() => handleDelete(id)}>Confirm
+                            className={record.status ? 'btn btn-success btnConfirm' : 'btn btn-warning btnConfirm'} disabled={record.status}
+                            onClick={() => handleDelete(id)}>{record.status ? 'Đã xác nhận' : 'Xác nhận'}
                     </button>
                 </>
         },
