@@ -6,7 +6,7 @@ function FooterAdmin() {
         <div>
             <footer id="footer" className="footer">
                 <div className="copyright">
-                    © Copyright <strong><span>Dev FullStack</span></strong>. All Rights Reserved
+                
                 </div>
             </footer>
         </div>

@@ -70,6 +70,49 @@ function Create() {
             })
     }
 
+    const handleTimeChange = () => {
+        const startTime = document.getElementById('startTime').value;
+        const endTime = document.getElementById('endTime').value;
+
+        let startTimeConvert = null;
+        let endTimeConvert = null;
+
+        const [hour, minute] = startTime.split(':');
+        let minuteInt = parseInt(minute, 10);
+
+        if (minuteInt < 15) {
+            minuteInt = 0;
+            startTimeConvert = `${hour}:${String(minuteInt).padStart(2, '0')}`;
+        } else if (minuteInt < 45) {
+            minuteInt = 30;
+            startTimeConvert = `${hour}:${String(minuteInt).padStart(2, '0')}`;
+        } else {
+            minuteInt = 0;
+            let hourInt = parseInt(hour, 10);
+            hourInt = (hourInt + 1) % 24;
+            startTimeConvert = `${String(hourInt).padStart(2, '0')}:${String(minuteInt).padStart(2, '0')}`;
+        }
+
+        const [hour2, minute2] = endTime.split(':');
+        let minuteInt2 = parseInt(minute2, 10);
+
+        if (minuteInt2 < 15) {
+            minuteInt2 = 0;
+            endTimeConvert = `${hour2}:${String(minuteInt2).padStart(2, '0')}`;
+        } else if (minuteInt2 < 45) {
+            minuteInt2 = 30;
+            endTimeConvert = `${hour2}:${String(minuteInt2).padStart(2, '0')}`;
+        } else {
+            minuteInt2 = 0;
+            let hourInt = parseInt(hour2, 10);
+            hourInt = (hourInt + 1) % 24;
+            endTimeConvert = `${String(hourInt).padStart(2, '0')}:${String(minuteInt2).padStart(2, '0')}`;
+        }
+
+        $('#startTime').val(startTimeConvert)
+        $('#endTime').val(endTimeConvert)
+    };
+
     const loadCategory = async () => {
         await categoryService.adminListCategory()
             .then((res) => {
@@ -240,12 +283,14 @@ function Create() {
                                         <div className="row">
                                             <div className="form-group col-md-6">
                                                 <label htmlFor="startTime">startTime</label>
-                                                <input type="time" className="form-control" id="startTime"
+                                                <input type="time" onChange={handleTimeChange} className="form-control"
+                                                       id="startTime"
                                                        name="startTime" required/>
                                             </div>
                                             <div className="form-group col-md-6">
                                                 <label htmlFor="endTime">endTime</label>
-                                                <input type="time" className="form-control" id="endTime"
+                                                <input type="time" onChange={handleTimeChange} className="form-control"
+                                                       id="endTime"
                                                        name="endTime" required/>
                                             </div>
                                         </div>
