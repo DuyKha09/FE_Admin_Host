@@ -9,10 +9,12 @@ import {
   UserSwitchOutlined,
   UnlockOutlined,
   IssuesCloseOutlined,
+  EditOutlined,
 } from "@ant-design/icons";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import avatar from "../../../assets/avatar.jpg";
+import "./ManageAccount.css"; // Import CSS file
 
 const { Column } = Table;
 const { Title } = Typography;
@@ -22,6 +24,7 @@ const ManageAccount = () => {
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [confirmUserId, setConfirmUserId] = useState(null);
   const [confirmUserStatus, setConfirmUserStatus] = useState(null);
+  const [hoveredUserId, setHoveredUserId] = useState(null);
 
   const fetchUserData = async () => {
     try {
@@ -65,7 +68,7 @@ const ManageAccount = () => {
   };
 
   return (
-    <div style={{marginLeft: 30}}>
+    <div style={{ marginLeft: 30 }}>
       <Title level={4} style={{ marginTop: -25 }}>
         Quản Lý Tài Khoản
       </Title>
@@ -167,21 +170,44 @@ const ManageAccount = () => {
           ellipsis={{ showTitle: false }}
           width={120}
           render={(text, record) => (
-            <Space size="middle" style={{ justifyContent: "center" }}>
-              {record.account_status ? (
-                <Button
-                  style={{ background: "red", color: "white", fontSize: 12 }}
-                  onClick={() => showConfirmModal(record.user_id, false)}
-                >
-                  Cấm tài khoản
-                </Button>
+            <Space
+              size="middle"
+              style={{ justifyContent: "center", position: "relative" }}
+              onMouseEnter={() => setHoveredUserId(record.user_id)}
+              onMouseLeave={() => setHoveredUserId(null)}
+            >
+              {hoveredUserId === record.user_id ? (
+                <div className="action-buttons visible">
+                  {record.account_status ? (
+                    <Button
+                      style={{
+                        background: "red",
+                        color: "white",
+                        fontSize: 12,
+                      }}
+                      onClick={() => showConfirmModal(record.user_id, false)}
+                    >
+                      Cấm tài khoản
+                    </Button>
+                  ) : (
+                    <Button
+                      style={{
+                        background: "green",
+                        color: "white",
+                        fontSize: 12,
+                      }}
+                      onClick={() => showConfirmModal(record.user_id, true)}
+                    >
+                      Mở tài khoản
+                    </Button>
+                  )}
+                </div>
               ) : (
                 <Button
-                  style={{ background: "green", color: "white", fontSize: 12 }}
-                  onClick={() => showConfirmModal(record.user_id, true)}
-                >
-                  Mở tài khoản
-                </Button>
+                  type="text"
+                  style={{ paddingLeft: 50 }}
+                  icon={<EditOutlined />}
+                />
               )}
             </Space>
           )}

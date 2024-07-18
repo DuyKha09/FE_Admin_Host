@@ -23,7 +23,6 @@ const items = [
   getItem("Quản Lý Tài Khoản", "manageAccount", <UserOutlined />),
   getItem("Quản Lý Khách Hàng", "manageCustomerAccount", <SolutionOutlined />),
   getItem("Quản Lý Dịch Vụ", "manageService", <SlidersOutlined />),
-  getItem("Quản Lý Khiếu Nại", "6", <ProfileOutlined />),
 ];
 
 export const Sidebar = () => {
