@@ -1,0 +1,16 @@
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  
+  .action-buttons.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+  
