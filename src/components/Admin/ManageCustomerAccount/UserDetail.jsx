@@ -169,17 +169,15 @@ const UserDetail = () => {
                               <Descriptions.Item label="Loại Thú Cưng">
                                 {getPetTypeById(pet.pet_type_id)?.type_name}
                               </Descriptions.Item>
-                              <Descriptions.Item label="Giống Thú Cưng">
+                              <Descriptions.Item label="Giống Thú Cưng" span={3}>
                                 {getPetBreedById(pet.pet_breed_id)?.breed_name}
                               </Descriptions.Item>
                               <Descriptions.Item label="Chiều Cao">
                                 {pet.height} cm
                               </Descriptions.Item>
-                              <Descriptions.Item label="Cân Nặng">
+                              <Descriptions.Item label="Cân Nặng" span={3}>
                                 {pet.weight} kg
                               </Descriptions.Item>
-                              <Descriptions.Item></Descriptions.Item>
-                              <Descriptions.Item></Descriptions.Item>
                               <Descriptions.Item label="Đặc Điểm">
                                 {
                                   getPetBreedById(pet.pet_breed_id)

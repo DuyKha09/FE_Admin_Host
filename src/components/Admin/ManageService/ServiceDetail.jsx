@@ -70,7 +70,7 @@ const ServiceDetail = () => {
                     {category.category_name}
                   </Descriptions.Item>
                   <Descriptions.Item label="Giá tiền" span={3}>
-                    ${service.price}
+                    {service.price} VND
                   </Descriptions.Item>
                   <Descriptions.Item label="Tóm tắt về dịch vụ" span={3}>
                     {service.service_description}

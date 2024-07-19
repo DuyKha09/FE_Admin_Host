@@ -9,7 +9,7 @@ import {
   UserSwitchOutlined,
   UnlockOutlined,
   IssuesCloseOutlined,
-  EditOutlined,
+  DashOutlined,
 } from "@ant-design/icons";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -29,6 +29,7 @@ const ManageAccount = () => {
   const fetchUserData = async () => {
     try {
       const response = await axiosClient.get(baseURL + users);
+      console.log(response);
       setUserData(response.data);
     } catch (error) {
       console.log(error);
@@ -206,7 +207,7 @@ const ManageAccount = () => {
                 <Button
                   type="text"
                   style={{ paddingLeft: 50 }}
-                  icon={<EditOutlined />}
+                  icon={<DashOutlined />}
                 />
               )}
             </Space>
