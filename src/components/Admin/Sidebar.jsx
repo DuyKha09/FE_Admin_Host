@@ -19,7 +19,6 @@ function getItem(label, key, icon, children) {
   };
 }
 const items = [
-  getItem("Quản Lý Doanh Thu", "1", <LineChartOutlined />),
   getItem("Quản Lý Tài Khoản", "manageAccount", <UserOutlined />),
   getItem("Quản Lý Khách Hàng", "manageCustomerAccount", <SolutionOutlined />),
   getItem("Quản Lý Dịch Vụ", "manageService", <SlidersOutlined />),

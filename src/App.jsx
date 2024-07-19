@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import AdminPage from "./pages/AdminPage/AdminPage";
 import LoginPage from "./pages/Login/LoginPage";
@@ -37,54 +37,62 @@ import ServiceDetail from "./components/Admin/ManageService/ServiceDetail";
 import Payment from "./components/Host/Payment";
 
 function App() {
+  return (
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/forbidden" element={<Forbidden />} />
+          <Route path="*" element={<NotFound />} />
+          <Route path="/admin" element={<AdminPage />}>
+            <Route path="/admin/manageAccount" element={<ManageAccount />} />
+            <Route
+              path="/admin/manageCustomerAccount"
+              element={<ManageCustomerAccount />}
+            />
+            <Route
+              path="/admin/manageCustomerAccount/:user_id"
+              element={<UserDetail />}
+            />
+            <Route path="/admin/manageService" element={<ManageService />} />
+            <Route
+              path="/admin/manageService/:id"
+              element={<ServiceDetail />}
+            />
+          </Route>
+          <Route path="/host" element={<HostPage />}></Route>
 
-    return (
-        <>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<LoginPage/>}/>
-                    <Route path="/forbidden" element={<Forbidden/>}/>
-                    <Route path="*" element={<NotFound/>}/>
-                    <Route path="/admin" element={<AdminPage/>}>
-                        <Route path="/admin/manageAccount" element={<ManageAccount/>}/>
-                        <Route
-                            path="/admin/manageCustomerAccount"
-                            element={<ManageCustomerAccount/>}
-                        />
-                        <Route
-                            path="/admin/manageCustomerAccount/:user_id"
-                            element={<UserDetail/>}
-                        />
-                        <Route path="/admin/manageService" element={<ManageService/>}/>
-                        <Route
-                            path="/admin/manageService/:id"
-                            element={<ServiceDetail/>}
-                        />
-                    </Route>
-                    <Route path="/host" element={<HostPage/>}></Route>
-
-                    {/* Category */}
-                    <Route path='/host/categories/list' element={<ListCategory/>}/>
-                    <Route path='/host/categories/create' element={<CreateCategory/>}/>
-                    <Route path='/host/categories/detail/:id' element={<DetailCategory/>}/>
-                    {/* Service */}
-                    <Route path='/host/services/list' element={<ListService/>}/>
-                    <Route path='/host/services/create' element={<CreateService/>}/>
-                    <Route path='/host/services/detail/:id' element={<DetailService/>}/>
-                    {/* Brand */}
-                    <Route path='/host/brands/list' element={<ListBrand/>}/>
-                    <Route path='/host/brands/create' element={<CreateBrand/>}/>
-                    <Route path='/host/brands/detail/:id' element={<DetailBrand/>}/>
-                    {/* Appointment */}
-                    <Route path='/host/my/appointments' element={<MyAppointment/>}/>
-                    <Route path='/host/appointments/list' element={<ListAppointment/>}/>
-                    <Route path='/host/appointments/create' element={<CreateAppointment/>}/>
-                    <Route path='/host/appointments/detail/:id' element={<DetailAppointment/>}/>
-                    <Route path='/host/payment/show' element={<Payment/>}/>
-                </Routes>
-            </BrowserRouter>
-        </>
-    );
+          {/* Category */}
+          <Route path="/host/categories/list" element={<ListCategory />} />
+          <Route path="/host/categories/create" element={<CreateCategory />} />
+          <Route
+            path="/host/categories/detail/:id"
+            element={<DetailCategory />}
+          />
+          {/* Service */}
+          <Route path="/host/services/list" element={<ListService />} />
+          <Route path="/host/services/create" element={<CreateService />} />
+          <Route path="/host/services/detail/:id" element={<DetailService />} />
+          {/* Brand */}
+          <Route path="/host/brands/list" element={<ListBrand />} />
+          <Route path="/host/brands/create" element={<CreateBrand />} />
+          <Route path="/host/brands/detail/:id" element={<DetailBrand />} />
+          {/* Appointment */}
+          <Route path="/host/my/appointments" element={<MyAppointment />} />
+          <Route path="/host/appointments/list" element={<ListAppointment />} />
+          <Route
+            path="/host/appointments/create"
+            element={<CreateAppointment />}
+          />
+          <Route
+            path="/host/appointments/detail/:id"
+            element={<DetailAppointment />}
+          />
+          <Route path="/host/payment/show" element={<Payment />} />
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
 }
 
 export default App;
